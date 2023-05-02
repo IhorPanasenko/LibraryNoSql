@@ -53,7 +53,7 @@ namespace LibraryNoSql.Controllers
                 {
                     Error = "User does not exist"
                 });
-            var identity = GetIdentity(user.Login, "User");
+            var identity = GetIdentity(user.Login, user.Role);
             var token = JwtTokenizer.GetEncodedJWT(identity, AuthOptions.Lifetime);
             return new JsonResult(new
             {

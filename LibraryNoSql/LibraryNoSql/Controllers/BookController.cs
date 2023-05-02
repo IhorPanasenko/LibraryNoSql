@@ -95,5 +95,12 @@ namespace LibraryNoSql.Controllers
 
             return Ok("Book returned to library successfully");
         }
+
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult Update(UpdateBookModel updateBook)
+        {
+            return Ok(bookRepository.Update(updateBook));
+        }
     }
 }

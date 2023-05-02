@@ -14,5 +14,8 @@ namespace LibraryNoSql.Models
 
         [BsonElement("password")]
         public string Password { get; set; } = String.Empty;
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "User";
     }
 }

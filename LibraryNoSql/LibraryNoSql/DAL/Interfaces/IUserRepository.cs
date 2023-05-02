@@ -10,5 +10,6 @@ namespace LibraryNoSql.DAL.Interfaces
         public User GetById(Guid id);
         public User GetByLogin(string login);
         public User GetByLoginAndPassword(string login, string password);
+
     }
 }

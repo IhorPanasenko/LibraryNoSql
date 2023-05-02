@@ -18,5 +18,7 @@ namespace LibraryNoSql.DAL.Interfaces
         public Book GiveBookToUser(Guid bookId, Guid userId);
 
         public Book RetrieveBookFromUser(Guid bookId);
+
+        public Book Update(UpdateBookModel book);
     }
 }
