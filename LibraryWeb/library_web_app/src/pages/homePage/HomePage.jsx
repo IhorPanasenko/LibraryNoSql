@@ -19,24 +19,25 @@ function HomePage() {
     const [isRendered, setIsRendered] = useState(false);
     const [value, setValue] = useState(false);
 
-    async function setAdmin(id, role2){
-            let role1 = role2=="User" ? "Admin" : "User";
-            let body = {
-                Id: id,
-                Role: role1
-            }
+    async function setAdmin(id, role2) {
+        let role1 = role2 == "User" ? "Admin" : "User";
+        console.log("user id: " + id + "\n user new role: " + role1)
+        let body = {
+            Id: id,
+            Role: role1
+        }
 
-            await axios({
-                method: 'put',
-                url: URL_UPDATEUSER,
-                data: JSON.stringify(body),
-                headers: { 'Content-Type': 'application/json; charset=utf-8' }
-            }).then((response)=>{
-                console.log(response.data)
-                getAllUsers()
-            })
+        await axios({
+            method: 'put',
+            url: URL_UPDATEUSER,
+            data: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json; charset=utf-8' }
+        }).then((response) => {
+            console.log(response.data)
+            getAllUsers()
+        })
 
-        
+
     }
     async function getAllBooks() {
         const response = await axios({
@@ -92,7 +93,7 @@ function HomePage() {
             <>
                 <main className='main'>
                     <div className="form_block" id='form_block'>
-                        <div className="user_head_container" style={{padding: 30}}>
+                        <div className="user_head_container" style={{ padding: 30 }}>
                             <h1>Books</h1>
                         </div>
                         <div className="m-3">
@@ -143,12 +144,12 @@ function HomePage() {
                                 </tbody>
                             </Table>
                         </div>
-                        <div className="button_wrapper" style={{padding: 30}}>
+                        <div className="button_wrapper" style={{ padding: 30 }}>
                             <button className='create_button' onClick={() => {
                                 create()
                             }}>Create</button>
                         </div>
-                        <div className="user_head_container" style={{padding: 30}}>
+                        <div className="user_head_container" style={{ padding: 30 }}>
                             <h1>Users</h1>
                         </div>
                         <div className="m-3">
@@ -161,9 +162,7 @@ function HomePage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users?.slice().reverse().map((item) => {
-                                        console.log(">>>>", item.login);
-                                        return (
+                                    {users?.reverse().map((item) => (
                                         <tr className='table_row' key={item.id}>
                                             <td className="table_cell">
                                                 <div className="nick_name">
@@ -187,7 +186,7 @@ function HomePage() {
                                             </td>
                                         </tr>
                                         )
-                                    })}
+                                    )}
                                 </tbody>
                             </Table>
                         </div>
