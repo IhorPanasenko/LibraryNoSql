@@ -15,6 +15,7 @@ namespace LibraryNoSql
             notBefore: now,
             claims: identity.Claims,
             expires: now.Add(lifetime),
+            
             signingCredentials: new
             SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
             SecurityAlgorithms.HmacSha256));

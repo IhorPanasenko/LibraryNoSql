@@ -63,12 +63,11 @@ namespace LibraryNoSql.DAL.Repositories
             if (user == null)
                 throw new Exception("User with this id does not exist");
 
-            if (book.GivenToUserId != null && book.GivenToUserId.ToString() != "")
+            if (book.GivenToUserId != Guid.Empty && book.GivenToUserId != null)//&& book.GivenToUserId.ToString() != "")
                 throw new Exception("Book is already given to user number " + book.GivenToUserId);
 
             var filter = Builders<Book>.Filter.Eq("_id", bookId);
             var update = Builders<Book>.Update.Set("given_to_user_id", userId);
-
 
             var result = bookCollection.UpdateOne(filter, update);
             return book;
@@ -80,7 +79,7 @@ namespace LibraryNoSql.DAL.Repositories
                 throw new Exception("Book with this id does not exist");
 
             var filter = Builders<Book>.Filter.Eq("_id", bookId);
-            var update = Builders<Book>.Update.Set("given_to_user_id", "");
+            var update = Builders<Book>.Update.Set("given_to_user_id", Guid.Empty);
 
             var result = bookCollection.UpdateOne(filter, update);
             return book;
@@ -121,7 +120,6 @@ namespace LibraryNoSql.DAL.Repositories
             var result = bookCollection.UpdateOne(filter, combinedUpdate);
             book = GetById(updateBook.Id);
             return book;
-
         }        
     }
 }
