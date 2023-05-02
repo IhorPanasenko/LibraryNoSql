@@ -155,13 +155,15 @@ function HomePage() {
                             <Table striped bordered hover variant="dark">
                                 <thead>
                                     <tr className='table_row'>
-                                        <th className='table_cell'>Login</th>
-                                        <th className='table_cell'>Role</th>
-                                        <th className='table_cell'>Role</th>
+                                        <th style={{width:40+"%"}} className='table_cell'>Login</th>
+                                        <th style={{width:20+"%"}} className='table_cell'>Role</th>
+                                        <th style={{width:40+"%"}} className='table_cell'>Role updating</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users?.slice().reverse().map((item) => (
+                                    {users?.slice().reverse().map((item) => {
+                                        console.log(">>>>", item.login);
+                                        return (
                                         <tr className='table_row' key={item.id}>
                                             <td className="table_cell">
                                                 <div className="nick_name">
@@ -174,16 +176,18 @@ function HomePage() {
                                                 </div>
                                             </td>
                                             <td className="table_cell">
-                                                <div className="nick_name">
+                                                <div className="nick_name" >
                                                 <Switch
+                                                id={item.id}
                                                 isOn={item.role=="Admin"}
                                                 onColor="#EF476F"
-                                                handleToggle={() => setAdmin(item.id, item.role)}
+                                                onChange={()=>setAdmin(item.id, item.role)}
                                                 />
                                                 </div>
                                             </td>
                                         </tr>
-                                    ))}
+                                        )
+                                    })}
                                 </tbody>
                             </Table>
                         </div>

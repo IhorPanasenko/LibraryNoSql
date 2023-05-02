@@ -1,19 +1,20 @@
 import React from 'react';
 import './Switch.css';
-const Switch = ({ isOn, handleToggle, onColor }) => {
+const Switch = ({ id, isOn, onColor, onChange }) => {
+    console.log("why")
   return (
     <>
       <input
         checked={isOn}
-        onChange={handleToggle}
         className="react-switch-checkbox"
-        id={`react-switch-new`}
+        id={id}
         type="checkbox"
+        onChange={(e) => onChange(e.target.checked)}
       />
       <label
         style={{ background: isOn && onColor }}
         className="react-switch-label"
-        htmlFor={`react-switch-new`}
+        htmlFor={id}
       >
         <span className={`react-switch-button`} />
       </label>
