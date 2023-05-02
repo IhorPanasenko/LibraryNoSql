@@ -60,6 +60,7 @@ function UserProfile() {
                 url: URL_RETRIEVE_BOOK + bookId,
                 headers: { 'Content-Type': 'application/json; charset=utf-8' }
             }).then((response) => {
+                getUserBooks();
                 navigate("/UserProfile")
             })
         } catch (err) {
