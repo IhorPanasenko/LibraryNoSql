@@ -19,10 +19,10 @@ function HomePage() {
     const [isRendered, setIsRendered] = useState(false);
     const [value, setValue] = useState(false);
 
-    async function setAdmin(item, value){
-            let role1 = value==true ? "Admin" : "User";
+    async function setAdmin(id, role2){
+            let role1 = role2=="User" ? "Admin" : "User";
             let body = {
-                Id: item.id,
+                Id: id,
                 Role: role1
             }
 
@@ -32,7 +32,8 @@ function HomePage() {
                 data: JSON.stringify(body),
                 headers: { 'Content-Type': 'application/json; charset=utf-8' }
             }).then((response)=>{
-                setUsers(getAllUsers())
+                console.log(response.data)
+                getAllUsers()
             })
 
         
@@ -177,7 +178,7 @@ function HomePage() {
                                                 <Switch
                                                 isOn={item.role=="Admin"}
                                                 onColor="#EF476F"
-                                                handleToggle={() => setAdmin(item, !value)}
+                                                handleToggle={() => setAdmin(item.id, item.role)}
                                                 />
                                                 </div>
                                             </td>
