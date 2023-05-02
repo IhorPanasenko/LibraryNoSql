@@ -23,6 +23,7 @@
 .sectionn{
     border: solid black 2px;
     padding-top: 10%;
+    padding-bottom: 10%;
     background-color: rgba(100, 184, 156, 0.5);
 }
 
