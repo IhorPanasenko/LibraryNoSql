@@ -4,6 +4,7 @@ import LoginPage from './pages/loginPage/LoginPage';
 import HomePage from './pages/homePage/HomePage';
 import CreatePage from './pages/createPage/CreatePage';
 import UpdatePage from './pages/updatePage/UpdatePage';
+import RegisterPage from './pages/registerPage/RegisterPage';
 import UserHomePage from './pages/userHomePage/UserHomePage';
 import UserProfile from './pages/MyProfile/UserProfile';
 import EditProfile from './pages/editProfilePage/EditProfile';
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Register" element={<RegisterPage />} />
         <Route path ="/Home" element={<HomePage/>}/>
         <Route path ="/CreateBook" element={<CreatePage/>}/>
         <Route path ="/UpdatePage/:id" element={<UpdatePage/>}/>

@@ -1,4 +1,4 @@
-import styles from './LoginPage.css'
+import styles from './RegisterPage.css'
 import Background from './img/backgroundLogin.jpg';
 import React from 'react'
 import { useRef, useState, useEffect, useContext } from 'react';
@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const URL = "https://localhost:7054/api/User/login";
+const URL = "https://localhost:7054/api/User/register";
 
-function LoginPage() {
+function RegisterPage() {
         
     const navigate = useNavigate();
     const userRef = useRef();
@@ -31,30 +31,21 @@ function LoginPage() {
                 data: JSON.stringify(body),
                 headers: { 'Content-Type': 'application/json; charset=utf-8' }
             }).then((response)=>{
-                console.log(response.data.jwt);
-                var token = response.data.jwt;
-                var decodedToken = jwtDecode(token);
-                console.log(decodedToken);
-                localStorage.setItem("token", token);
-                
-                if(decodedToken.Role == "Admin"){
-                    navigate("/Home");
-                    return;
-                }
-                
-                navigate("/UserHome")
+                console.log(response.data);
+                alert("You have registered");
+                navigate("/Login")
             })
 
         } catch (err) {
             if (!err?.response) {
-                alert("No Server Response");
+                //alert("No Server Response");
                 console.log(err);
             } else if (err.response?.status === 400) {
                 alert("Missing Password or Login");
             } else if (err.response?.status === 401) {
                 alert("Unathorized")
             } else {
-                alert("Login failed");
+                alert("Registration failed");
             }
         }
     }
@@ -99,21 +90,13 @@ function LoginPage() {
                         </div>
                     </div>
                     <div class="Button_Wrapper">
-                        <button>Log In</button>
+                        <button>Register</button>
                     </div>
 
                 </form>
-                <div class="Registration_Link">
-                    <p>
-                        No account yet?&nbsp;&nbsp;
-                        <Link to="/Register">
-                            <span className="line">Register</span>
-                        </Link>
-                    </p>
-                </div>
             </section>
         </div>
     )
 }
 
-export default LoginPage
+export default RegisterPage
