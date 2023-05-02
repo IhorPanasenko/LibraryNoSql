@@ -7,7 +7,7 @@ namespace LibraryNoSql.DAL.Interfaces
     {
         public User Insert(User user);
         public IReadOnlyCollection<User> GetAll();
-        public User GetById(ObjectId id);
+        public User GetById(Guid id);
         public User GetByLogin(string login);
         public User GetByLoginAndPassword(string login, string password);
     }

@@ -25,17 +25,17 @@ namespace LibraryNoSql.DAL.Repositories
 
         public Book Insert(Book book)
         {
-            book.Id = ObjectId.GenerateNewId();
+            book.Id = Guid.NewGuid();
             bookCollection.InsertOne(book);
             return book;
         }
-        public ICollection<Book> GetByUser(ObjectId userId)
+        public ICollection<Book> GetByUser(Guid userId)
         {
             return bookCollection
             .Find(x => x.GivenToUserId == userId)
             .ToList();
         }
-        public Book GetById(ObjectId id)
+        public Book GetById(Guid id)
         {
             return bookCollection
             .Find(x => x.Id == id)
@@ -47,11 +47,11 @@ namespace LibraryNoSql.DAL.Repositories
             .Find(x => true)
             .ToList();
         }
-        public void Delete(ObjectId bookId)
+        public void Delete(Guid bookId)
         {
             bookCollection.DeleteOne((x) => x.Id == bookId);
         }
-        public Book GiveBookToUser(ObjectId bookId, ObjectId userId)
+        public Book GiveBookToUser(Guid bookId, Guid userId)
         {
             var book = GetById(bookId);
             if (book == null)
@@ -62,7 +62,7 @@ namespace LibraryNoSql.DAL.Repositories
                 throw new Exception("User with this id does not exist");
 
             if (book.GivenToUserId != null && book.GivenToUserId.ToString() != "")
-                throw new Exception("Book is already given to user number " + userId);
+                throw new Exception("Book is already given to user number " + book.GivenToUserId);
 
             var filter = Builders<Book>.Filter.Eq("id", bookId);
             var update = Builders<Book>.Update.Set("given_to_user_id", userId);
@@ -70,7 +70,7 @@ namespace LibraryNoSql.DAL.Repositories
             var result = bookCollection.UpdateOne(filter, update);
             return book;
         }
-        public Book RetrieveBookFromUser(ObjectId bookId)
+        public Book RetrieveBookFromUser(Guid bookId)
         {
             var book = GetById(bookId);
             if (book == null)

@@ -42,7 +42,7 @@ namespace LibraryNoSql.Controllers
 
         [HttpGet]
         [Route("getByUser")]
-        public IActionResult GetByUser(ObjectId userId)
+        public IActionResult GetByUser(Guid userId)
         {
             var dbBooks = bookRepository.GetByUser(userId);
             return Ok(dbBooks);
@@ -50,7 +50,7 @@ namespace LibraryNoSql.Controllers
 
         [HttpGet]
         [Route("getById")]
-        public IActionResult GetById(ObjectId bookId)
+        public IActionResult GetById(Guid bookId)
         {
             var dbBook = bookRepository.GetById(bookId);
             return Ok(dbBook);
@@ -58,7 +58,7 @@ namespace LibraryNoSql.Controllers
 
         [HttpDelete]
         [Route("deleteById")]
-        public IActionResult DeleteById(ObjectId bookId)
+        public IActionResult DeleteById(Guid bookId)
         {
             bookRepository.Delete(bookId);
             return Ok();
@@ -82,7 +82,7 @@ namespace LibraryNoSql.Controllers
 
         [HttpPut]
         [Route("retrieve")]
-        public IActionResult RetrieveBookFromUser(ObjectId bookId)
+        public IActionResult RetrieveBookFromUser(Guid bookId)
         {
             try
             {

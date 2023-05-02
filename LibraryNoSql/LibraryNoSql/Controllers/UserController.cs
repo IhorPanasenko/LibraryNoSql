@@ -73,5 +73,17 @@ namespace LibraryNoSql.Controllers
             ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(Guid id)
+        {
+            return Ok(userRepository.GetById(id));
+        }
+
+        [HttpGet("GetByLogin")]
+        public IActionResult GetByLogin(string login)
+        {
+            return Ok(userRepository.GetByLogin(login));
+        }
     }
 }

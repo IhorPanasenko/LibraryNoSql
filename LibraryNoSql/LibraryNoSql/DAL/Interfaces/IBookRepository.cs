@@ -7,16 +7,16 @@ namespace LibraryNoSql.DAL.Interfaces
     {
         public Book Insert(Book book);
 
-        public ICollection<Book> GetByUser(ObjectId userId);
+        public ICollection<Book> GetByUser(Guid userId);
 
-        public Book GetById(ObjectId id);
+        public Book GetById(Guid id);
 
         public IReadOnlyCollection<Book> GetAll();
 
-        public void Delete(ObjectId bookId);
+        public void Delete(Guid bookId);
 
-        public Book GiveBookToUser(ObjectId bookId, ObjectId userId);
+        public Book GiveBookToUser(Guid bookId, Guid userId);
 
-        public Book RetrieveBookFromUser(ObjectId bookId);
+        public Book RetrieveBookFromUser(Guid bookId);
     }
 }
