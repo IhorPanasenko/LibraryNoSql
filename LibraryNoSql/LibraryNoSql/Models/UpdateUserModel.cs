@@ -6,6 +6,8 @@ namespace LibraryNoSql.Models
     {
         [Required]
         public Guid Id { get; set; }
+        public string? Login { get; set; }
+        public string? Password { get; set; } 
         public string? Role { get; set; }
     }
 }
