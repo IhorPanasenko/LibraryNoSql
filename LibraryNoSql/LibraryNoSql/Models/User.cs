@@ -7,13 +7,15 @@ namespace LibraryNoSql.Models
     public class User
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        public Guid Id { get; set; }
 
         [BsonElement("login")]
         public string Login { get; set; } = String.Empty;
 
         [BsonElement("password")]
         public string Password { get; set; } = String.Empty;
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "User";
     }
 }

@@ -25,7 +25,7 @@ namespace LibraryNoSql.Repositories
             if (existingUser != null)
                 throw new Exception("User with same login already exists");
 
-            user.Id = ObjectId.GenerateNewId();
+            user.Id = Guid.NewGuid();
             user.Password = HashPassword(user.Password);
             collection.InsertOne(user);
             return user;
@@ -44,7 +44,7 @@ namespace LibraryNoSql.Repositories
             .Find(x => true)
             .ToList();
         }
-        public User GetById(ObjectId id)
+        public User GetById(Guid id)
         {
             return collection
             .Find(x => x.Id == id)

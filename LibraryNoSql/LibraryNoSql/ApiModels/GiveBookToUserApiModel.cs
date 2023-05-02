@@ -4,7 +4,7 @@ namespace LibraryNoSql.ApiModels
 {
     public class GiveBookToUserApiModel
     {
-        public ObjectId bookId { get; set; }
-        public ObjectId userId { get; set; }
+        public Guid bookId { get; set; }
+        public Guid userId { get; set; }
     }
 }

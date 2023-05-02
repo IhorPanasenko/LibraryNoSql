@@ -1,0 +1,42 @@
+.user_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(176, 242, 92, 0.5);
+    border-radius: 38px;
+    margin-top: 20px;
+    padding: 3%;
+}
+
+.profile_info_wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.nick_name p {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    margin-left: 15px;
+}
+
+.button_delete {
+    border: none;
+    background: #e46202;
+    border-radius: 18px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    color: #ffffff;
+    padding: 12px 20px;
+    width: 24%;
+}
