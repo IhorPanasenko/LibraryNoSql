@@ -32,7 +32,7 @@ function RegisterPage() {
                 headers: { 'Content-Type': 'application/json; charset=utf-8' }
             }).then((response)=>{
                 console.log(response.data);
-                alert("You have registered");
+                alert("You have registered successfully. Now please enter your credentials again");
                 navigate("/Login")
             })
 
@@ -41,7 +41,7 @@ function RegisterPage() {
                 //alert("No Server Response");
                 console.log(err);
             } else if (err.response?.status === 400) {
-                alert("Missing Password or Login");
+                alert(err.response.data.error);
             } else if (err.response?.status === 401) {
                 alert("Unathorized")
             } else {

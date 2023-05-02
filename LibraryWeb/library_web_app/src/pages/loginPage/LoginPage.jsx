@@ -103,7 +103,7 @@ function LoginPage() {
                     </div>
 
                 </form>
-                <div class="Registration_Link">
+                <div class="Registration_Linkk">
                     <p>
                         No account yet?&nbsp;&nbsp;
                         <Link to="/Register">

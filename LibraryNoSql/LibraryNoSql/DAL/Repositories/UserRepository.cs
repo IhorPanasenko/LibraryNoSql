@@ -2,6 +2,7 @@
 using LibraryNoSql.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -72,6 +73,37 @@ namespace LibraryNoSql.Repositories
             await collection.Indexes
             .CreateOneAsync(new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(_ => _.Login)))
             .ConfigureAwait(false);
+        }
+
+        User IUserRepository.Update(UpdateUserModel updateUser)
+        {
+            var user = GetById(updateUser.Id);
+            if (user == null)
+                throw new Exception("User with this id does not exist");
+
+            var updateDefination = new List<UpdateDefinition<User>>();
+            var filter = Builders<User>.Filter.Eq("_id", updateUser.Id);
+
+            foreach (PropertyInfo prop in typeof(UpdateUserModel).GetProperties())
+            {
+                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(updateUser, null));
+
+                if (prop.GetValue(updateUser, null) != null)
+                {
+                    if (prop.Name.ToLower() == "id")
+                    {
+                        continue;
+                    }
+
+                    updateDefination.Add(Builders<User>.Update.Set(prop.Name.ToLower(), prop.GetValue(updateUser, null)));
+                }
+            }
+
+            var combinedUpdate = Builders<User>.Update.Combine(updateDefination);
+
+            var result = collection.UpdateOne(filter, combinedUpdate);
+            user = GetById(updateUser.Id);
+            return user;
         }
     }
 }

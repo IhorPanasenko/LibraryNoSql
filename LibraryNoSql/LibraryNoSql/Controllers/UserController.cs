@@ -1,5 +1,6 @@
 ﻿using LibraryNoSql.ApiModels;
 using LibraryNoSql.DAL.Interfaces;
+using LibraryNoSql.DAL.Repositories;
 using LibraryNoSql.Models;
 using LibraryNoSql.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +28,13 @@ namespace LibraryNoSql.Controllers
             if (existing != null)
                 return BadRequest(new
                 {
-                    Error = "User already exist"
+                    Error = "User with this login already exist. Please enter unique name"
                 });
             var dbUser = userRepository.Insert(new User()
             {
                 Login = model.Login,
-                Password = model.Password
+                Password = model.Password,
+                Role = "User"
             });
             return Ok(dbUser);
         }
@@ -64,6 +66,12 @@ namespace LibraryNoSql.Controllers
             {
                 JWT = token
             });
+        }
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult Update(UpdateUserModel updateUser)
+        {
+            return Ok(userRepository.Update(updateUser));
         }
         private ClaimsIdentity GetIdentity(string login, string role, Guid id)
         {

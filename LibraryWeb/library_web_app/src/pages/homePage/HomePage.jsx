@@ -5,15 +5,38 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
+import Switch from "./Switch";
 
 const URL_GETBOOKS = "https://localhost:7054/api/Book/getAll";
+const URL_GETUSERS = "https://localhost:7054/api/User/getAll";
 const URL_DELETEBOOK = "https://localhost:7054/api/Book/deleteById?bookId="
+const URL_UPDATEUSER = "https://localhost:7054/api/User/Update"
 
 function HomePage() {
     const navigate = useNavigate();
     const [books, setBooks] = useState([]);
+    const [users, setUsers] = useState([]);
     const [isRendered, setIsRendered] = useState(false);
+    const [value, setValue] = useState(false);
 
+    async function setAdmin(item, value){
+            let role1 = value==true ? "Admin" : "User";
+            let body = {
+                Id: item.id,
+                Role: role1
+            }
+
+            await axios({
+                method: 'put',
+                url: URL_UPDATEUSER,
+                data: JSON.stringify(body),
+                headers: { 'Content-Type': 'application/json; charset=utf-8' }
+            }).then((response)=>{
+                setUsers(getAllUsers())
+            })
+
+        
+    }
     async function getAllBooks() {
         const response = await axios({
             method: "get",
@@ -25,9 +48,21 @@ function HomePage() {
             setBooks(response.data)
         })
     }
+    async function getAllUsers() {
+        const response = await axios({
+            method: "get",
+            url: URL_GETUSERS,
+            data: JSON.stringify(),
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+        }).then((response) => {
+            console.log(response.data)
+            setUsers(response.data)
+        })
+    }
 
     useEffect(() => {
         getAllBooks()
+        getAllUsers()
         setIsRendered(true)
     }, [])
 
@@ -56,7 +91,7 @@ function HomePage() {
             <>
                 <main className='main'>
                     <div className="form_block" id='form_block'>
-                        <div className="user_head_container">
+                        <div className="user_head_container" style={{padding: 30}}>
                             <h1>Books</h1>
                         </div>
                         <div className="m-3">
@@ -107,10 +142,49 @@ function HomePage() {
                                 </tbody>
                             </Table>
                         </div>
-                        <div className="button_wrapper">
+                        <div className="button_wrapper" style={{padding: 30}}>
                             <button className='create_button' onClick={() => {
                                 create()
                             }}>Create</button>
+                        </div>
+                        <div className="user_head_container" style={{padding: 30}}>
+                            <h1>Users</h1>
+                        </div>
+                        <div className="m-3">
+                            <Table striped bordered hover variant="dark">
+                                <thead>
+                                    <tr className='table_row'>
+                                        <th className='table_cell'>Login</th>
+                                        <th className='table_cell'>Role</th>
+                                        <th className='table_cell'>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users?.slice().reverse().map((item) => (
+                                        <tr className='table_row' key={item.id}>
+                                            <td className="table_cell">
+                                                <div className="nick_name">
+                                                    <p>{item.login} </p>
+                                                </div>
+                                            </td>
+                                            <td className="table_cell">
+                                                <div className="nick_name">
+                                                    <p>{item.role} </p>
+                                                </div>
+                                            </td>
+                                            <td className="table_cell">
+                                                <div className="nick_name">
+                                                <Switch
+                                                isOn={item.role=="Admin"}
+                                                onColor="#EF476F"
+                                                handleToggle={() => setAdmin(item, !value)}
+                                                />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
                         </div>
                     </div>
                 </main>
