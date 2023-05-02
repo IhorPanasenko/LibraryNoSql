@@ -81,6 +81,11 @@ namespace LibraryNoSql.Repositories
             if (user == null)
                 throw new Exception("User with this id does not exist");
 
+            if(updateUser.Password != null)
+            {
+                updateUser.Password = HashPassword(updateUser.Password);
+            }
+
             var updateDefination = new List<UpdateDefinition<User>>();
             var filter = Builders<User>.Filter.Eq("_id", updateUser.Id);
 
