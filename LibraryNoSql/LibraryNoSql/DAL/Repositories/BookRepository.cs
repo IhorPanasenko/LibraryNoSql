@@ -121,7 +121,6 @@ namespace LibraryNoSql.DAL.Repositories
             var result = bookCollection.UpdateOne(filter, combinedUpdate);
             book = GetById(updateBook.Id);
             return book;
-
         }        
     }
 }
