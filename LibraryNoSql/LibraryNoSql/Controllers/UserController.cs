@@ -49,11 +49,15 @@ namespace LibraryNoSql.Controllers
         public IActionResult Login([FromBody] UserApiModel model)
         {
             var user = userRepository.GetByLoginAndPassword(model.Login, model.Password);
+
             if (user == null)
+            {
                 return BadRequest(new
                 {
                     Error = "User does not exist"
                 });
+            }
+
             var identity = GetIdentity(user.Login, user.Role, user.Id);
             var token = JwtTokenizer.GetEncodedJWT(identity, AuthOptions.Lifetime);
             return new JsonResult(new

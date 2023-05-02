@@ -37,17 +37,17 @@ function LoginPage() {
                 console.log(decodedToken);
                 localStorage.setItem("token", token);
                 
-                // if(decodedToken.role == "Admin"){
-                //     navigate("/AdminViewUsers");
-                //     return;
-                // }
+                if(decodedToken.Role == "Admin"){
+                    navigate("/Home");
+                    return;
+                }
                 
-                navigate("/Home")
+                navigate("/UserHome")
             })
 
         } catch (err) {
             if (!err?.response) {
-                //alert("No Server Response");
+                alert("No Server Response");
                 console.log(err);
             } else if (err.response?.status === 400) {
                 alert("Missing Password or Login");
