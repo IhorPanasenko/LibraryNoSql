@@ -3,6 +3,7 @@ using LibraryNoSql.DAL.Interfaces;
 using LibraryNoSql.DAL.Repositories;
 using LibraryNoSql.Models;
 using LibraryNoSql.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -90,6 +91,7 @@ namespace LibraryNoSql.Controllers
         }
 
         [HttpGet("GetById")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult GetById(Guid id)
         {
             return Ok(userRepository.GetById(id));
