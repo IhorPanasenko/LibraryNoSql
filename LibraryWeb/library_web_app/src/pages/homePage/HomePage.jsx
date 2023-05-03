@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Switch from "./Switch";
 import Button from 'react-bootstrap/esm/Button';
+import BookLineComponent from '../../components/bookLineComponent/BookLineComponent';
 
 const URL_GETBOOKS = "https://localhost:7054/api/Book/getAll";
 const URL_GETUSERS = "https://localhost:7054/api/User/getAll";
@@ -38,7 +39,7 @@ function HomePage() {
             getAllUsers()
         })
     }
-    
+
     async function getAllBooks() {
         const response = await axios({
             method: "get",
@@ -116,34 +117,35 @@ function HomePage() {
                                 </thead>
                                 <tbody>
                                     {books?.slice().reverse().map((item) => (
-                                        <tr className='table_row' key={item.id}>
-                                            <td className="table_cell">
-                                                <div className="nick_name">
-                                                    <p>{item.title} </p>
-                                                </div>
-                                            </td>
-                                            <td className="table_cell">
-                                                <div className="nick_name">
-                                                    <p>{item.pages} </p>
-                                                </div>
-                                            </td>
-                                            <td className="table_cell">
-                                                <div className="nick_name">
-                                                    <p>{item.author} </p>
-                                                </div>
-                                            </td>
-                                            <td className="table_cell">
-                                                <div className="nick_name">
-                                                    <p>{item.givenToUserId} </p>
-                                                </div>
-                                            </td>
-                                            <td className="table_cell">
-                                                <Button variant="warning" onClick={() => editBook(item.id)}>Edit</Button>
-                                            </td>
-                                            <td className="table_cell">
-                                                <Button variant="danger" onClick={() => { deleteBook(item.id) }}>Delete</Button>
-                                            </td>
-                                        </tr>
+                                        <BookLineComponent id = {item.id}/>
+                                        // <tr className='table_row' key={item.id}>
+                                        //     <td className="table_cell">
+                                        //         <div className="nick_name">
+                                        //             <p>{item.title} </p>
+                                        //         </div>
+                                        //     </td>
+                                        //     <td className="table_cell">
+                                        //         <div className="nick_name">
+                                        //             <p>{item.pages} </p>
+                                        //         </div>
+                                        //     </td>
+                                        //     <td className="table_cell">
+                                        //         <div className="nick_name">
+                                        //             <p>{item.author} </p>
+                                        //         </div>
+                                        //     </td>
+                                        //     <td className="table_cell">
+                                        //         <div className="nick_name">
+                                        //             <p>{item.givenToUserId} </p>
+                                        //         </div>
+                                        //     </td>
+                                        //     <td className="table_cell">
+                                        //         <Button variant="warning" onClick={() => editBook(item.id)}>Edit</Button>
+                                        //     </td>
+                                        //     <td className="table_cell">
+                                        //         <Button variant="danger" onClick={() => { deleteBook(item.id) }}>Delete</Button>
+                                        //     </td>
+                                        // </tr>
                                     ))}
                                 </tbody>
                             </Table>
