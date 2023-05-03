@@ -45,6 +45,7 @@ namespace LibraryNoSql.DAL.Repositories
         }
         public IReadOnlyCollection<Book> GetAll()
         {
+            var bookCount = bookCollection.Find(x=>true).CountDocuments();
             return bookCollection
             .Find(x => true)
             .ToList();
