@@ -1,7 +1,6 @@
 import React from 'react';
 import './Switch.css';
 const Switch = ({ id, isOn, onColor, onChange }) => {
-    console.log("why")
   return (
     <>
       <input
